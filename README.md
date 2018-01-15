@@ -12,3 +12,5 @@ npm run dist
 
 # Start for development
 npm start
+
+[![Screen_Shot_2018-01-15_at_3.41.05_PM.png](https://s14.postimg.org/flhejx2wh/Screen_Shot_2018-01-15_at_3.41.05_PM.png)](https://postimg.org/image/dtofp0jjh/)
