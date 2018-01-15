@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 
 //获取图片相关的数据,
 var  imageDatas = require('../data/imageData.json');
-//利用自执行函数,将图片名信息转成图片URL路劲信息
+//利用自执行函数,将图片名信息转成图片URL路径信息
 imageDatas = (function getImageURL(imageDatasArr){
 	for(var i =0,j = imageDatas.length; i < j; i++){
 		var singleImageData = imageDatas[i];
@@ -15,6 +15,7 @@ imageDatas = (function getImageURL(imageDatasArr){
 	}
 	return imageDatasArr;
 })(imageDatas);
+console.log(imageDatas);
 /*
  * 获取区间内的一个随机值
  */
@@ -26,7 +27,7 @@ function get30DegRandom() {
   }
   
 var ImgFigure = React.createClass({
-        /*
+    /*
      * imgFigure 的点击处理函数
      */
     handleClick: function (e) {
@@ -49,7 +50,9 @@ var ImgFigure = React.createClass({
 		if (this.props.arrange.pos) {
 				styleObj = this.props.arrange.pos;
         }
-                // 如果图片的旋转角度有值并且不为0， 添加旋转角度
+        // 如果图片的旋转角度有值并且不为0， 添加旋转角度
+        //  styleObj['transfrom']== 'rotate('+this.props.arrage.rotate+'deg)'
+  
         if (this.props.arrange.rotate) {
           (['MozTransform', 'msTransform', 'WebkitTransform', 'transform']).forEach(function (value) {
             styleObj[value] = 'rotate(' + this.props.arrange.rotate + 'deg)';
@@ -60,17 +63,23 @@ var ImgFigure = React.createClass({
         if (this.props.arrange.isCenter) {
           styleObj.zIndex = 11;
         }
+        var imgFigureClassName = 'img-figure';
+            imgFigureClassName += this.props.arrange.isInverse ? ' is-inverse' : '';
 
 		return (
-			<figure className="img-figure"  style={styleObj} onClick={this.handleClick}>
-				<img src={this.props.data.imageUrl} alt={this.props.data.title}/>
-                <h2 className="img-title">{this.props.data.title}</h2>
-                <div className="img-back" onClick={this.handleClick}>
-                  <p>
-                    {this.props.data.desc}
-                  </p>
-                </div>
-			</figure>
+            <figure className={imgFigureClassName} style={styleObj} onClick={this.handleClick}>
+                <img src={this.props.data.imageUrl}
+                     alt={this.props.data.title}
+                />
+                <figcaption>
+                    <h2 className="img-title">{this.props.data.title}</h2>
+                    <div className="img-back" onClick={this.handleClick}>
+                      <p>
+                        {this.props.data.desc}
+                      </p>
+                    </div>
+                </figcaption>
+            </figure>
 
 		);
 
@@ -251,7 +260,6 @@ var AppComponent = React.createClass({
         this.Constant.vPosRange.topY[1] = halfStageH - halfImgH * 3;
         this.Constant.vPosRange.x[0] = halfStageW - imgW;
         this.Constant.vPosRange.x[1] = halfStageW;
-        console.log(this.Constant);
         this.rearrange(0);
     
       },
