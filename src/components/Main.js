@@ -91,8 +91,13 @@ var ImgFigure = React.createClass({
           styleObj.zIndex = 11;
         }
         var imgFigureClassName = 'img-figure';
-            imgFigureClassName += this.props.arrange.isInverse ? ' is-inverse' : '';
-
+           
+            if (this.props.arrange.isCenter) {
+                imgFigureClassName += " is-center";
+                if (this.props.arrange.isInverse) {
+                    imgFigureClassName += " is-inverse";
+                }
+            }
 		return (
             <figure className={imgFigureClassName} style={styleObj} onClick={this.handleClick}>
                 <img src={this.props.data.imageUrl}
